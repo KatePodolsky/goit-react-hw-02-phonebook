@@ -1,2 +1,3 @@
-# goit-react-hw-02-phonebook
-Домашнее задание React 2
+# goit-react-hw-03-phonebook
+
+Домашнее задание React 3
