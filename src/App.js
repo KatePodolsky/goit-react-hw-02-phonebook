@@ -7,13 +7,12 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/ContactList/ContactList";
 import FilterContacts from "./components/FilterContacts/FilterContacts"
 
-import contactInitial from "./data/contactInitial.json";
 import styles from "./App.module.css"
 
 
 class App extends Component {
   static defaultProps = {
-    contacts: contactInitial,
+    contacts: [ ],
     filter: ''
   };
 
@@ -64,6 +63,21 @@ class App extends Component {
       contact.name.toLowerCase().includes(normalizedFilter))
  }
 
+   componentDidMount=()=>{      
+     const contacts = localStorage.getItem('contacts');
+     const parsedContacts = JSON.parse(contacts);
+     
+     if (parsedContacts) {
+       this.setState({ contacts: parsedContacts });
+     }
+   }
+  
+  componentDidUpdate=(prevProps,prevState)=>{
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts',JSON.stringify(this.state.contacts))
+    }
+  }
+  
   render() {
     const { filter } = this.state;
     const filteredContacts = this.getfilteredContacts();
